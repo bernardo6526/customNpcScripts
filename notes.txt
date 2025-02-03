@@ -1,0 +1,15 @@
+give @p minecraft:potion 1 0 {display:{Name:"Potion of Regeneration"}} @x give @p minecraft:potion 1 0 {display:{Name:"Potion of Poison"}} @x give @p minecraft:potion 1 0 {display:{Name:"Web Fluid"}} @x give @p minecraft:nether_wart 1 0 @x give @p minecraft:ghast_tear 1 0 @x give @p minecraft:spider_eye 1 0 @x give @p minecraft:sugar 1 0 @x give @p minecraft:gunpowder 1 0
+
+
+
+/replaceitem entity @p slot.armor.head legends:spiderman.helmet 1 1000
+/replaceitem entity @p slot.armor.chest legends:spiderman.chestplate 1 1000
+/replaceitem entity @p slot.armor.legs legends:spiderman.leggings 1 1000
+/replaceitem entity @p slot.armor.feet legends:spiderman.boots 1 1000
+
+
+/effect Bernardo6526 potion.revival 1000000 5
+/effect Bernardo6526 potion.repair 1 255
+/effect Bernardo6526 potion.rust 1 255
+
+minecraft:textures/items/beef_cooked.png
