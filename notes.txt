@@ -13,3 +13,17 @@ give @p minecraft:potion 1 0 {display:{Name:"Potion of Regeneration"}} @x give @
 /effect Bernardo6526 potion.rust 1 255
 
 minecraft:textures/items/beef_cooked.png
+
+
+day 91, 07:20 - 19:20 25%
+
+
+12h = 25%
+48h = 100%
+
+18000 = 48h
+x = 21h
+
+x*48 = 18000*21
+x = (18000*21)/48
+x=7875

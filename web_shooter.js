@@ -1,3 +1,5 @@
+// WEB SHOOTER CODE
+
 function tick(event) {
     var world = event.player.getWorld();
     var hunger = event.player.getHunger();
