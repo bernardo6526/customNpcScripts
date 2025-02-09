@@ -3,7 +3,7 @@
 var timeLeft = 10;
 var bar_size = 100;
 
-function downedAnimation(current_event){
+function downedAnimation(current_event,p_armors){
     // INIT DATA, DEFINE STATUS AND CREATE NPC
     var event = current_event;
     var world = event.player.getWorld();
@@ -17,6 +17,9 @@ function downedAnimation(current_event){
     spidey.setLivingAnimation(false);
     spidey.setMovingType(0);
     spidey.setAnimation(2);
+    for(var i=0; i < 4; i++){
+        spidey.setArmor(i,p_armors[3-i]);
+    }
 
     // PLAYER BEHAVIOUR
     event.player.setMode(1);
@@ -69,7 +72,7 @@ function damaged(event) {
     var downed = 0;
     
     for(var i=0; i < 4; i++){
-        armor = event.player.getArmor(i)
+        armor = event.player.getArmor(i);
         p_armors.push(armor);
         if (armor && armor.getItemDamage() == 900){
             downed++;
@@ -77,7 +80,7 @@ function damaged(event) {
     }
 
     if(downed == 4 && !event.player.hasTempData("downed")){
-        downedAnimation(event);
+        downedAnimation(event,p_armors);
         event.player.timers.forceStart(0,timeLeft*20,false);
         event.player.timers.forceStart(1,(timeLeft+10)*20,false);
     }
