@@ -1,36 +1,59 @@
 // HP CONTROL
 function tick(event) {
     var player = event.player;
-    var last = player.getStoredData("lastHealth");
-    var current = player.getHealth();
+    var currentHP = player.getHealth();
+    var maxHP = player.getMaxHealth();
+    var ratioHP = currentHP / maxHP;
 
-    if (last == null) {
-        player.setStoredData("lastHealth", current);
-        return;
-    }
+    if (ratioHP == 1) return;
 
-    // If player healed → cancel it
-    if (current > last) {
-        player.setHealth(last);
-    } else {
-        player.setStoredData("lastHealth", current);
+    player.setMaxHealth(maxHP + 2);
+    if (maxHP >= 1000) {
+        player.setMaxHealth(101);
+        player.setHealth(ratioHP * 100);
     }
 }
 
 function damaged(event) {
-    var damageValue = event.getDamage();
+    var player = event.player;
+    var damage = event.getDamage();
 
-    // MAX DAMAGE
-    if(damageValue > 25) damageValue = 25;
-    
-    // MIN HP
-    var newHP = event.player.getHealth() - damageValue;
-    if(newHP <= 0 ) newHP = 1;
+    if (damage > 25) damage = 25; // MAX DAMAGE
 
-    event.player.setHealth(newHP);
+    // Convert damage based on max HP
+    var ratio = damage / 100;
+    var convertedDamage = player.getMaxHealth() * ratio;
+
+    var newHP = player.getHealth() - convertedDamage;
+    if (newHP <= 0) newHP = 1;
+
+    player.setHealth(newHP);
+
+    // Set armor damage
+    var p_armors = [];
+    for (var i = 0; i < 4; i++) {
+        p_armors.push(event.player.getArmor(i));
+    }
+
+    for (var i = 0; i < p_armors.length; i++) {
+        if (p_armors[i]) {
+            var itemDamage = p_armors[i].getItemDamage() + damage;
+            if (itemDamage < p_armors[i].getMaxItemDamage()) p_armors[i].setItemDamage(itemDamage);
+            else p_armors[i].setItemDamage(p_armors[i].getMaxItemDamage() - 1);
+        }
+    }
 }
+
 function respawn(event) {
-   event.player.setStoredData("lastHealth", 101);
-   event.player.setMaxHealth(101);
-   event.player.setHealth(101);
+    var player = event.player;
+    var maxHP = 101;
+    player.setMaxHealth(maxHP);
+    player.setHealth(maxHP);
+}
+
+function wakeUp(event) {
+    var player = event.player;
+    var maxHP = 101;
+    player.setMaxHealth(maxHP);
+    player.setHealth(maxHP);
 }

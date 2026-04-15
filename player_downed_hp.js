@@ -59,8 +59,7 @@ function awake(current_event){
     event.player.removeItem("minecraft:stone_button",0,1);
 
     // HEAL PLAYER
-    event.player.setHealth(25);
-    event.player.setStoredData("lastHealth", 25);
+    event.player.setHealth(0.25*event.player.getMaxHealth());
 }
 
 function damaged(event) {
@@ -72,7 +71,7 @@ function damaged(event) {
         p_armors.push(armor);
     }
 
-    if(event.player.getHealth() <= 2 && !event.player.hasTempData("downed")){
+    if(event.player.getHealth() <= 0.01*event.player.getMaxHealth() && !event.player.hasTempData("downed")){
         downedAnimation(event, p_armors);
         event.player.timers.forceStart(0,timeLeft*20,false);
         event.player.timers.forceStart(1,(timeLeft+10)*20,false);
