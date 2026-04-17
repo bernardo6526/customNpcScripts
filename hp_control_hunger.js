@@ -2,9 +2,16 @@
 function tick(event) {
     var player = event.player;
     var currentHP = player.getStoredData("health");
-    if(currentHP == null) currentHP = player.getHunger();
-    var percentage = currentHP/100; 
-    player.setHunger(percentage*20); // 20 = Max Hunger Bar
+    if (currentHP == null) currentHP = player.getHunger();
+    var percentage = currentHP / 100;
+    player.setHunger(percentage * 20); // 20 = Max Hunger Bar
+
+    // Cancel Hunger slowdown
+    var world = player.getWorld();
+    var hunger = player.getHunger();
+    if (hunger <= 6 && player.hasTempData("sprinting")) {
+        event.API.executeCommand(world, "effect @p 1 1 6");
+    }
 }
 
 function damaged(event) {
@@ -38,4 +45,19 @@ function respawn(event) {
 function wakeUp(event) {
     var player = event.player;
     player.setStoredData("health", 100);
+}
+
+// Detect sprinting
+function keyPressed(event) {
+    var key_press = event.getKey();
+    switch (key_press) {
+        case 17: // W
+            if (event.keyDown()) {
+                event.player.setTempData("sprinting", {});
+            } else {
+                event.player.removeTempData("sprinting");
+            }
+            break;
+        default:
+    }
 }

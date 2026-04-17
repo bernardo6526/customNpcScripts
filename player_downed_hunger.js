@@ -60,6 +60,7 @@ function awake(current_event){
 
     // HEAL PLAYER
     event.player.setStoredData("health", 25);
+    event.player.setStoredData("stamina", event.player.getStoredData("stamina") - 25);
 }
 
 function damaged(event) {
@@ -73,6 +74,7 @@ function damaged(event) {
 
     if(event.player.getStoredData("health") <= 0 && !event.player.hasTempData("downed")){
         downedAnimation(event, p_armors);
+        timeLeft = event.player.getStoredData("stamina");
         event.player.timers.forceStart(0,timeLeft*20,false);
         event.player.timers.forceStart(1,(timeLeft+10)*20,false);
     }
@@ -96,7 +98,7 @@ function tick(event){
 
 function keyPressed(event) {
     // SPACEBAR
-    if(event.getKey() == 57 && event.player.hasTempData("downed")){
+    if(event.getKey() == 57 && event.player.hasTempData("downed") && event.player.timers.has(0)){
         // INCREMENT AWAKE BAR
         var downed_object = event.player.getTempData("downed");
         downed_object.awakebar += 1;
