@@ -59,8 +59,9 @@ function awake(current_event){
     event.player.removeItem("minecraft:stone_button",0,1);
 
     // HEAL PLAYER
-    event.player.setStoredData("health", 25);
-    event.player.setStoredData("stamina", event.player.getStoredData("stamina") - 25);
+    var stamina = event.player.getStoredData("stamina") - 25;
+    event.player.setStoredData("health", stamina > 25? stamina : 25);
+    event.player.setStoredData("stamina", stamina);
 }
 
 function damaged(event) {
