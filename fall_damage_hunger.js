@@ -14,7 +14,7 @@ function fall(event) {
     player.setStoredData("fall", true);
 
     var velocityY = player.getStoredData("velocityY");
-    if (velocityY < -10) hurtPlayer(event, Math.abs(velocityY+10));
+    if (velocityY < -15) hurtPlayer(event, Math.abs(velocityY+15));
 
     player.setStoredData("fall", false);
 }
