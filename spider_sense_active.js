@@ -2,8 +2,8 @@
 var TICKS_PER_SECOND = 20;
 
 // --- CONFIG (in seconds) ---
-var COOLDOWN_TIME = 3;
-var SENSE_DURATION = 3;
+var COOLDOWN_TIME = 2.8;
+var SENSE_DURATION = 2.8;
 
 function spiderSense(event) {
   var player = event.player;
@@ -68,7 +68,7 @@ function tick(event) {
 }
 
 function detectEntities(player) {
-  var entities = player.getSurroundingEntities(10);
+  var entities = player.getSurroundingEntities(2);
   if (entities.length > 0) return true;
   return false;
 }
